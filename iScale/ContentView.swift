@@ -47,7 +47,7 @@ struct ScaleView: View {
         VStack(alignment: .leading) {
             Text(self.scale.title).font(.largeTitle)
             Text(ContentView.dateFormatter.string(from: self.scale.lastMod)).font(.subheadline)
-            Text(self.scale.summary).lineLimit(nil)
+            Text(self.scale.summary).lineLimit(nil).padding()
         }.fixedSize(horizontal: false, vertical: true).padding()
     }
     
@@ -62,7 +62,7 @@ struct SubScaleView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(self.scale.title).font(.title)
-            Text(self.scale.summary).lineLimit(nil)
+            Text(self.scale.summary).lineLimit(nil).padding()
         }.fixedSize(horizontal: false, vertical: true).padding()
     }
     
