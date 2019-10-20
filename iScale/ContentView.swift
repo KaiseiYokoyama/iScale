@@ -9,23 +9,76 @@
 import SwiftUI
 
 struct ContentView: View {
+    let scale: Scale
+    
+    static var dateFormatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        dateFormatter.dateStyle = .short
+        return dateFormatter
+    }
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading) {
+                VStack {
+                    // self scale
+                    ScaleView(self.scale)
+                    // divider
+//                    Divider()
+                    // sub scales
+                    ForEach(self.scale.subScales) { scale in
+                        SubScaleView(scale)
+                    }
+                }
+            }.padding()
+        }
+    }
+    
+    init(_ scale: Scale) {
+        self.scale = scale
+    }
+}
+
+struct ScaleView: View {
+    let scale: Scale
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Tuttle Rock")
-                .font(.title)
-            HStack {
-                Text(/*@START_MENU_TOKEN@*/"Joshua Tree National Park"/*@END_MENU_TOKEN@*/)
-                    .font(.subheadline)
-                Spacer()
-                Text("California")
-            }
-        }
-        .padding()
+            Text(self.scale.title).font(.largeTitle)
+            Text(ContentView.dateFormatter.string(from: self.scale.lastMod)).font(.subheadline)
+            Text(self.scale.summary).lineLimit(nil)
+        }.fixedSize(horizontal: false, vertical: true).padding()
+    }
+    
+    init(_ scale: Scale) {
+        self.scale = scale
+    }
+}
+
+struct SubScaleView: View {
+    let scale: Scale
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(self.scale.title).font(.title)
+            Text(self.scale.summary).lineLimit(nil)
+        }.fixedSize(horizontal: false, vertical: true).padding()
+    }
+    
+    init(_ scale: Scale) {
+        self.scale = scale
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        // get sample scale
+        let scale = Scale.sampleScale()
+        for _ in 1...5 {
+            scale.push(Scale.sampleScale())
+        }
+
+        return ContentView(scale).previewDevice(PreviewDevice(rawValue: "iPad (6th generation)"))
     }
 }
