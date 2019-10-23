@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
 //    @State
-    var scale: Scale = Scale()
+    let scale: Scale
     
     static var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
