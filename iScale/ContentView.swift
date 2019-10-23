@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    let scale: Scale
+//    @State
+    var scale: Scale = Scale()
     
     static var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
@@ -19,40 +20,53 @@ struct ContentView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                VStack {
-                    // self scale
-                    ScaleView(self.scale)
-                    // divider
-//                    Divider()
-                    // sub scales
-                    ForEach(self.scale.subScales) { scale in
-                        SubScaleView(scale)
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    VStack {
+                        // self scale
+                        ScaleView(self.scale)
+                        // divider
+//                      Divider()
+                        // sub scales
+//                        List(self.scale.subScales) { scale in
+                        ForEach(self.scale.subScales) { scale in
+                            NavigationLink(destination: ContentView(scale)) {
+                                SubScaleView(scale)
+                            }
+                        }
                     }
-                }
-            }.padding()
+                }.padding()
+            }
+            .navigationBarTitle(Text(self.scale.title), displayMode: .inline)
+            .navigationBarHidden(true)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     init(_ scale: Scale) {
         self.scale = scale
+//        self._scale = State(initialValue: scale)
     }
 }
 
 struct ScaleView: View {
     let scale: Scale
+    @State var summary: String
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(self.scale.title).font(.largeTitle)
-            Text(ContentView.dateFormatter.string(from: self.scale.lastMod)).font(.subheadline)
+            VStack(alignment: .leading) {
+                Text(self.scale.title).font(.largeTitle)
+                Text(ContentView.dateFormatter.string(from: self.scale.lastMod)).font(.subheadline)
+            }.padding()
             Text(self.scale.summary).lineLimit(nil).padding()
-        }.fixedSize(horizontal: false, vertical: true).padding()
+        }.fixedSize(horizontal: false, vertical: true)
     }
     
     init(_ scale: Scale) {
         self.scale = scale
+        _summary = State(initialValue: scale.summary)
     }
 }
 
@@ -61,9 +75,9 @@ struct SubScaleView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(self.scale.title).font(.title)
+            Text(self.scale.title).font(.title).padding()
             Text(self.scale.summary).lineLimit(nil).padding()
-        }.fixedSize(horizontal: false, vertical: true).padding()
+        }.fixedSize(horizontal: false, vertical: true)
     }
     
     init(_ scale: Scale) {
