@@ -34,6 +34,7 @@ struct ContentView: View {
                             NavigationLink(destination: ContentView(scale)) {
                                 SubScaleView(scale)
                             }
+                            .accentColor(/*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/)
                         }
                     }
                 }.padding()
