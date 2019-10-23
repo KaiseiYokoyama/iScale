@@ -26,15 +26,11 @@ struct ContentView: View {
                     VStack {
                         // self scale
                         ScaleView(self.scale)
-                        // divider
-//                      Divider()
                         // sub scales
-//                        List(self.scale.subScales) { scale in
                         ForEach(self.scale.subScales) { scale in
                             NavigationLink(destination: ContentView(scale)) {
                                 SubScaleView(scale)
-                            }
-                            .accentColor(/*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/)
+                            }.accentColor(.primary)
                         }
                     }
                 }.padding()
@@ -62,6 +58,7 @@ struct ScaleView: View {
                 Text(ContentView.dateFormatter.string(from: self.scale.lastMod)).font(.subheadline)
             }.padding()
             Text(self.scale.summary).lineLimit(nil).padding()
+//            TextField(summary, text: $summary).lineLimit(nil)
         }.fixedSize(horizontal: false, vertical: true)
     }
     
