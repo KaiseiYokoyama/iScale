@@ -98,8 +98,10 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         // get sample scale
         let scale = Scale.sampleScale()
-        for _ in 1...5 {
-            scale.push(Scale.sampleScale())
+        for i in 1...5 {
+            let subScale = Scale.sampleScale()
+            subScale.title = subScale.title + String(i)
+            scale.push(subScale)
         }
 
         return ContentView(scale).previewDevice(PreviewDevice(rawValue: "iPad (6th generation)"))
