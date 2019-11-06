@@ -11,6 +11,8 @@ import SwiftUI
 struct ContentView: View {
 //    @State
     let scale: Scale
+    @State
+    var subScales: [Scale] = []
     
     static var dateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
@@ -23,27 +25,35 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading) {
-                    VStack {
-                        // self scale
-                        ScaleView(self.scale)
-                        // sub scales
-                        ForEach(self.scale.subScales) { scale in
+                    ScaleView(self.scale)
+                        .navigationBarTitle(Text(self.scale.title))
+                    // sub scales
+                    List {
+                        ForEach(subScales) { (scale) in
                             NavigationLink(destination: ContentView(scale)) {
                                 SubScaleView(scale)
-                            }.accentColor(.primary)
+                            }
+                            .accentColor(.primary)
                         }
+                        .onMove(perform: move)
                     }
-                }.padding()
+                }
             }
-            .navigationBarTitle(Text(self.scale.title), displayMode: .inline)
-            .navigationBarHidden(true)
         }
+        .navigationBarTitle(Text(self.scale.title))
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
     init(_ scale: Scale) {
         self.scale = scale
+        self.subScales = scale.subScales
+        self._subScales = State(initialValue: scale.subScales)
+
 //        self._scale = State(initialValue: scale)
+    }
+    
+    func move(from source: IndexSet, to destination: Int) {
+        subScales.move(fromOffsets: source, toOffset: destination)
     }
 }
 
@@ -54,7 +64,7 @@ struct ScaleView: View {
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
-                Text(self.scale.title).font(.largeTitle)
+//                Text(self.scale.title).font(.largeTitle)
                 Text(ContentView.dateFormatter.string(from: self.scale.lastMod)).font(.subheadline)
             }.padding()
             Text(self.scale.summary).lineLimit(nil).padding()
@@ -68,7 +78,8 @@ struct ScaleView: View {
     }
 }
 
-struct SubScaleView: View {
+struct SubScaleView: View, Identifiable {
+    let id = UUID()
     let scale: Scale
     
     var body: some View {
