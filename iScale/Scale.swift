@@ -36,10 +36,17 @@ class Scale: Identifiable {
             updateLastMod()
         }
     }
+    public var tags: Set<String> {
+        didSet {
+            updateLastMod()
+        }
+    }
     /// 作成日
     public let created: Date
     /// 更新日
     public var lastMod: Date
+    /// 非有効化
+    public var disabled: Bool = false
     
     init() {
         self.title = "No Title"
@@ -47,6 +54,7 @@ class Scale: Identifiable {
         self.summary = "No Summary"
         
         self.subScales = [];
+        self.tags = [];
 
         let date = Date()
         self.created = date
@@ -58,6 +66,7 @@ class Scale: Identifiable {
         self.title = title
         self.summary = summary
         self.subScales = subScales
+        self.tags = [];
 
         let date = Date()
         self.created = date
@@ -126,6 +135,7 @@ extension Scale {
         
         scale.title = "ポラーノの広場"
         scale.summary = "あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。\n　またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。"
+        scale.tags = ["draft", "debug"]
         
         return scale
     }

@@ -27,20 +27,19 @@ struct ContentView: View {
                 VStack(alignment: .leading) {
                     ScaleView(self.scale)
                         .navigationBarTitle(Text(self.scale.title))
-                    // sub scales
-                    List {
+//                    List {
                         ForEach(subScales) { (scale) in
                             NavigationLink(destination: ContentView(scale)) {
                                 SubScaleView(scale)
                             }
-                            .accentColor(.primary)
                         }
-                        .onMove(perform: move)
-                    }
+//                        .onMove(perform: move)
+//                    }
+                    .navigationBarTitle(Text(self.scale.title))
                 }
             }
         }
-        .navigationBarTitle(Text(self.scale.title))
+//        .navigationBarTitle(Text(self.scale.title))
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
@@ -48,49 +47,10 @@ struct ContentView: View {
         self.scale = scale
         self.subScales = scale.subScales
         self._subScales = State(initialValue: scale.subScales)
-
-//        self._scale = State(initialValue: scale)
     }
     
     func move(from source: IndexSet, to destination: Int) {
-        subScales.move(fromOffsets: source, toOffset: destination)
-    }
-}
-
-struct ScaleView: View {
-    let scale: Scale
-    @State var summary: String
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-//                Text(self.scale.title).font(.largeTitle)
-                Text(ContentView.dateFormatter.string(from: self.scale.lastMod)).font(.subheadline)
-            }.padding()
-            Text(self.scale.summary).lineLimit(nil).padding()
-//            TextField(summary, text: $summary).lineLimit(nil)
-        }.fixedSize(horizontal: false, vertical: true)
-    }
-    
-    init(_ scale: Scale) {
-        self.scale = scale
-        _summary = State(initialValue: scale.summary)
-    }
-}
-
-struct SubScaleView: View, Identifiable {
-    let id = UUID()
-    let scale: Scale
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(self.scale.title).font(.title).padding()
-            Text(self.scale.summary).lineLimit(nil).padding()
-        }.fixedSize(horizontal: false, vertical: true)
-    }
-    
-    init(_ scale: Scale) {
-        self.scale = scale
+        self.subScales.move(fromOffsets: source, toOffset: destination)
     }
 }
 
@@ -101,6 +61,9 @@ struct ContentView_Previews: PreviewProvider {
         for i in 1...5 {
             let subScale = Scale.sampleScale()
             subScale.title = subScale.title + String(i)
+            if (i%2==0) {
+                subScale.disabled = true
+            }
             scale.push(subScale)
         }
 

@@ -26,6 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         for i in 1...5 {
             let subScale = Scale.sampleScale()
             subScale.title = subScale.title + String(i)
+            if (i%2 == 0) {
+                subScale.disabled = true
+            }
             scale.push(subScale)
         }
         let contentView = ContentView(scale)

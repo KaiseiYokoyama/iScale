@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3112197B23822EE00047108C /* SubScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3112197A23822EE00047108C /* SubScaleView.swift */; };
+		3112197D2382321D0047108C /* ScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3112197C2382321D0047108C /* ScaleView.swift */; };
 		31393B40235C225F0004628F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31393B3F235C225F0004628F /* AppDelegate.swift */; };
 		31393B42235C225F0004628F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31393B41235C225F0004628F /* SceneDelegate.swift */; };
 		31393B44235C225F0004628F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31393B43235C225F0004628F /* ContentView.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3112197A23822EE00047108C /* SubScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubScaleView.swift; sourceTree = "<group>"; };
+		3112197C2382321D0047108C /* ScaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleView.swift; sourceTree = "<group>"; };
 		31393B3C235C225F0004628F /* iScale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iScale.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31393B3F235C225F0004628F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31393B41235C225F0004628F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				31393B4D235C22640004628F /* Info.plist */,
 				31393B47235C22640004628F /* Preview Content */,
 				31393B6F235C3CAF0004628F /* Scale.swift */,
+				3112197A23822EE00047108C /* SubScaleView.swift */,
+				3112197C2382321D0047108C /* ScaleView.swift */,
 			);
 			path = iScale;
 			sourceTree = "<group>";
@@ -271,7 +277,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				31393B40235C225F0004628F /* AppDelegate.swift in Sources */,
+				3112197B23822EE00047108C /* SubScaleView.swift in Sources */,
 				31393B42235C225F0004628F /* SceneDelegate.swift in Sources */,
+				3112197D2382321D0047108C /* ScaleView.swift in Sources */,
 				31393B70235C3CAF0004628F /* Scale.swift in Sources */,
 				31393B44235C225F0004628F /* ContentView.swift in Sources */,
 			);
